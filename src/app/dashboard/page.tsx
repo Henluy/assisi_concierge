@@ -1,36 +1,61 @@
-
 "use client";
 
 import { useEffect, useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
 
-// Mock params for demo - normally from Auth/Session
-const MERCHANT_ID = 'demo-merchant-id';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function DashboardPage() {
     const [stats, setStats] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState<any>(null);
+    const router = useRouter();
 
     useEffect(() => {
-        // Fetch data from our new API
-        fetch(`/api/merchants/dashboard?merchantId=${MERCHANT_ID}`)
-            .then(res => res.json())
-            .then(data => {
-                setStats(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error(err);
-                setLoading(false);
-            });
-    }, []);
+        // Check Auth
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (!session) {
+                router.push('/dashboard/login');
+                return;
+            }
+            setUser(session.user);
+            // Fetch data from our API using user email as merchant ID (for demo)
+            fetch(`/api/merchants/dashboard?merchantId=${session.user.email}`)
+                .then(res => res.json())
+                .then(data => {
+                    setStats(data);
+                    setLoading(false);
+                })
+                .catch(err => {
+                    console.error(err);
+                    setLoading(false);
+                });
+        });
+    }, [router]);
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        router.push('/dashboard/login');
+    };
 
     if (loading) return <div className="p-8 text-center">Chargement du tableau de bord...</div>;
 
     return (
         <div className="min-h-screen bg-gray-50 p-8">
-            <header className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900">Tableau de Bord Commerçant 📊</h1>
-                <p className="text-gray-600">Suivez vos performances et commissions en temps réel.</p>
+            <header className="mb-8 flex justify-between items-center">
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-900">Tableau de Bord Commerçant 📊</h1>
+                    <p className="text-gray-600">Connecté en tant que : {user?.email}</p>
+                </div>
+                <button
+                    onClick={handleLogout}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm"
+                >
+                    Déconnexion
+                </button>
             </header>
 
             {/* KPI Cards */}
@@ -69,7 +94,7 @@ export default function DashboardPage() {
                                 <td className="px-6 py-4 text-sm font-medium">€{ref.amount}</td>
                                 <td className="px-6 py-4 text-sm">
                                     <span className={`px-2 py-1 rounded-full text-xs ${ref.status === 'paid' ? 'bg-green-100 text-green-800' :
-                                            'bg-yellow-100 text-yellow-800'
+                                        'bg-yellow-100 text-yellow-800'
                                         }`}>
                                         {ref.status}
                                     </span>
