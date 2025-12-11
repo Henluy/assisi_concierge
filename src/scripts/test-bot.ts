@@ -20,6 +20,7 @@ const testScenarios = [
     { name: 'Intent: Mangiare', text: 'Dove mangiare a Assisi?' },
     { name: 'Intent: Pregare', text: 'Voglio pregare' },
     { name: 'Intent: Dormire', text: 'Dove dormire?' },
+    { name: 'Intent: Crowd (Prediction)', text: 'Il y a du monde à la basilique ?' },
     { name: 'Intent: General (OpenAI)', text: 'Qui est Saint François?' },
 ];
 

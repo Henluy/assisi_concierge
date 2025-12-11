@@ -21,6 +21,7 @@ type Place = {
 
 import { getTelegramFileUrl } from '@/lib/telegram';
 import { analyzeImage } from '@/lib/openai';
+import { predictCrowdLevel } from '@/lib/prediction';
 
 // ... (existing imports)
 
@@ -64,7 +65,23 @@ export async function POST(req: NextRequest) {
 
         let responseText = "";
 
-        if (text.includes('mangiare')) {
+        // ⏳ Crowd Prediction Intent
+        if (text.includes('monde') || text.includes('foule') || text.includes('attente') || text.includes('affollamento') || text.includes('people')) {
+            const prediction = predictCrowdLevel();
+            const emoji = prediction.level === 'Low' ? '🟢' : prediction.level === 'Moderate' ? '🟡' : '🔴';
+
+            responseText = `⏳ **Prédiction d'Affluence (Basilique)**\n\n`;
+            responseText += `${emoji} Niveau : **${prediction.level}**\n`;
+            responseText += `⏱️ Attente estimée : **${prediction.waitMinutes} min**\n`;
+            responseText += `ℹ️ Raison : ${prediction.reason}\n\n`;
+
+            if (prediction.level === 'High' || prediction.level === 'Extreme') {
+                responseText += "💡 *Conseil : Revenez plutôt vers 13h ou après 17h.*";
+            } else {
+                responseText += "✅ *C'est le moment idéal pour visiter !*";
+            }
+
+        } else if (text.includes('mangiare')) {
             // Try live search first
             const liveData = await searchPlaces('restaurant');
             const dataToUse = (liveData && liveData.length > 0) ? liveData : places.filter(p => p.type === 'restaurant').slice(0, 3);
