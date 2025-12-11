@@ -1,0 +1,167 @@
+[
+  {
+    "id": "rest-1",
+    "type": "restaurant",
+    "name": "Ristorante La Rocca",
+    "address": "Via della Rocca 12, Assisi",
+    "tel": "+39 075 804 1234",
+    "avg_price": 35,
+    "rating": 4.5,
+    "coords": [43.0728, 12.6180],
+    "description": "Cuisine traditionnelle ombrienne avec vue panoramique sur la vallée.",
+    "url": "https://larocca-assisi.com"
+  },
+  {
+    "id": "rest-2",
+    "type": "restaurant",
+    "name": "Trattoria Pallotta",
+    "address": "Vicolo della Volta Pinta 3, Assisi",
+    "tel": "+39 075 812 649",
+    "avg_price": 25,
+    "rating": 4.7,
+    "coords": [43.0710, 12.6150],
+    "description": "Ambiance familiale, célèbre pour ses pâtes à la truffe.",
+    "url": "https://pallotta.it"
+  },
+  {
+    "id": "rest-3",
+    "type": "restaurant",
+    "name": "Osteria Piazzetta dell'Erba",
+    "address": "Via S. Gabriele dell'Addolorata 15, Assisi",
+    "tel": "+39 075 815 352",
+    "avg_price": 40,
+    "rating": 4.8,
+    "coords": [43.0705, 12.6140],
+    "description": "Cuisine raffinée et créative au cœur du centre historique.",
+    "url": "https://piazzettadellerba.it"
+  },
+  {
+    "id": "rest-4",
+    "type": "restaurant",
+    "name": "Bibenda Assisi",
+    "address": "Via Nepis 9, Assisi",
+    "tel": "+39 349 467 9876",
+    "avg_price": 20,
+    "rating": 4.9,
+    "coords": [43.0715, 12.6160],
+    "description": "Bar à vin avec d'excellentes planches de charcuterie et fromages.",
+    "url": null
+  },
+  {
+    "id": "rest-5",
+    "type": "restaurant",
+    "name": "Monnalisa",
+    "address": "Via Borgo Aretino 11, Assisi",
+    "tel": "+39 075 812 405",
+    "avg_price": 30,
+    "rating": 4.4,
+    "coords": [43.0690, 12.6200],
+    "description": "Spécialités locales dans un cadre rustique et accueillant.",
+    "url": "https://ristorantemonnalisa.it"
+  },
+  {
+    "id": "church-1",
+    "type": "church",
+    "name": "Basilica di San Francesco",
+    "address": "Piazza San Francesco 2, Assisi",
+    "hours": "06:30 - 18:30",
+    "capacity": 2000,
+    "secret_local": "Visitez la crypte tôt le matin (avant 8h) pour un silence absolu.",
+    "description": "Le lieu le plus sacré d'Assise, abritant la tombe de Saint François et les fresques de Giotto.",
+    "mass_schedule": ["07:15", "09:00", "11:00", "17:00", "18:30"]
+  },
+  {
+    "id": "church-2",
+    "type": "church",
+    "name": "Basilica di Santa Chiara",
+    "address": "Piazza Santa Chiara 1, Assisi",
+    "hours": "06:30 - 12:00, 14:00 - 18:00",
+    "capacity": 800,
+    "secret_local": "La chapelle du crucifix de San Damiano est souvent moins bondée à l'heure du déjeuner.",
+    "description": "Dédiée à Sainte Claire, elle conserve le crucifix qui a parlé à Saint François.",
+    "mass_schedule": ["07:15", "09:00 (Dim)", "17:30"]
+  },
+  {
+    "id": "church-3",
+    "type": "church",
+    "name": "Cattedrale di San Rufino",
+    "address": "Piazza San Rufino 3, Assisi",
+    "hours": "08:00 - 13:00, 15:00 - 18:00",
+    "capacity": 500,
+    "secret_local": "Montez au clocher pour une vue imprenable, peu de touristes le savent.",
+    "description": "La cathédrale d'Assise, lieu de baptême de François et Claire.",
+    "mass_schedule": ["10:00 (Dim)", "18:00"]
+  },
+  {
+    "id": "church-4",
+    "type": "church",
+    "name": "Eremo delle Carceri",
+    "address": "Via Eremo delle Carceri 38, Assisi",
+    "hours": "06:30 - 18:00",
+    "capacity": 100,
+    "secret_local": "Marchez jusqu'à la grotte de Saint François pour méditer en pleine nature.",
+    "description": "Un ermitage paisible sur les pentes du mont Subasio, où François se retirait.",
+    "mass_schedule": ["07:30", "17:00"]
+  },
+  {
+    "id": "church-5",
+    "type": "church",
+    "name": "San Damiano",
+    "address": "Via San Damiano 85, Assisi",
+    "hours": "10:00 - 12:00, 14:00 - 16:30",
+    "capacity": 200,
+    "secret_local": "Assistez aux vêpres avec les frères franciscains, une expérience mystique.",
+    "description": "Le petit monastère où François a entendu la voix de Dieu et composé le Cantique des Créatures.",
+    "mass_schedule": ["07:30", "17:00 (Vêpres)"]
+  },
+  {
+    "id": "hotel-1",
+    "type": "hotel",
+    "name": "Nun Assisi Relais & Spa Museum",
+    "address": "Via Eremo delle Carceri 1A, Assisi",
+    "avg_price": 250,
+    "availability": "Haute",
+    "description": "Luxe dans un ancien couvent restauré avec un spa romain incroyable.",
+    "url": "https://nunassisi.com"
+  },
+  {
+    "id": "hotel-2",
+    "type": "hotel",
+    "name": "Hotel Giotto",
+    "address": "Via Fontebella 41, Assisi",
+    "avg_price": 120,
+    "availability": "Moyenne",
+    "description": "Vue imprenable sur la vallée, à deux pas de la Basilique.",
+    "url": "https://hotelgiottoassisi.it"
+  },
+  {
+    "id": "hotel-3",
+    "type": "hotel",
+    "name": "BVH Hotel",
+    "address": "Via San Paolo 1, Assisi",
+    "avg_price": 80,
+    "availability": "Haute",
+    "description": "Moderne et confortable, excellent rapport qualité-prix.",
+    "url": null
+  },
+  {
+    "id": "hotel-4",
+    "type": "hotel",
+    "name": "Ostello della Pace",
+    "address": "Via Valecchie 177, Assisi",
+    "avg_price": 25,
+    "availability": "Très Haute",
+    "description": "Auberge de jeunesse propre et conviviale pour les pèlerins et backpackers.",
+    "url": "https://ostellodellapace.it"
+  },
+  {
+    "id": "hotel-5",
+    "type": "hotel",
+    "name": "Residenza d'Epoca San Crispino",
+    "address": "Via Sant'Agnese 11, Assisi",
+    "avg_price": 150,
+    "availability": "Basse",
+    "description": "Charme historique au cœur d'Assise, ambiance médiévale.",
+    "url": "https://sancrispinoresidence.com"
+  }
+]
