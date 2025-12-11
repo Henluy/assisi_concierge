@@ -1,13 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Ensure we can deploy even if there are minor type/lint errors for MVP
+    output: 'standalone',
     typescript: {
         ignoreBuildErrors: true,
     },
     eslint: {
         ignoreDuringBuilds: true,
     },
-    // Add any necessary image domains if using external images
     images: {
         remotePatterns: [
             {
