@@ -19,9 +19,40 @@ type Place = {
     description: string;
 };
 
+import { getTelegramFileUrl } from '@/lib/telegram';
+import { analyzeImage } from '@/lib/openai';
+
+// ... (existing imports)
+
 export async function POST(req: NextRequest) {
     try {
         const update = await req.json();
+
+        // Handle Photos (Vision API) 👁️
+        if (update.message?.photo) {
+            const chatId = update.message.chat.id;
+            const photos = update.message.photo;
+            // Get largest photo
+            const largestPhoto = photos[photos.length - 1];
+
+            // 1. Notify user
+            await sendTelegramMessage(chatId, "🧐 J'analyse votre photo... (Vision IA)");
+
+            // 2. Get File URL
+            const imageUrl = await getTelegramFileUrl(largestPhoto.file_id);
+            if (!imageUrl) {
+                await sendTelegramMessage(chatId, "❌ Impossible de récupérer l'image.");
+                return NextResponse.json({ ok: true });
+            }
+
+            // 3. Analyze with OpenAI Vision
+            const analysis = await analyzeImage(imageUrl);
+
+            // 4. Reply
+            await sendTelegramMessage(chatId, `👁️ **Analyse IA :**\n\n${analysis}`);
+
+            return NextResponse.json({ ok: true });
+        }
 
         // Check if it's a message and has text
         if (!update.message || !update.message.text) {

@@ -19,3 +19,14 @@ export const sendTelegramMessage = async (chatId: number, text: string) => {
         console.error('Error sending Telegram message:', error);
     }
 };
+
+export const getTelegramFileUrl = async (fileId: string): Promise<string | null> => {
+    if (!bot) return null;
+    try {
+        const fileLink = await bot.telegram.getFileLink(fileId);
+        return fileLink.href;
+    } catch (error) {
+        console.error('Error getting Telegram file URL:', error);
+        return null;
+    }
+};
