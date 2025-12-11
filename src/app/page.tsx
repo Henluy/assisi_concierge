@@ -19,7 +19,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-gray-800 mb-2">🤖 Chatbot Telegram</h2>
             <p className="text-gray-600 mb-4">Posez vos questions et recevez des réponses instantanées.</p>
             <a
-              href="https://t.me/AssisiConciergeBot"
+              href="https://t.me/Vainqueur85Bot"
               target="_blank"
               className="inline-block w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
             >
