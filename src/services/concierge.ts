@@ -60,7 +60,31 @@ export class ConciergeService {
             return { intent: 'restaurant', text: response };
         }
 
-        // 4. Fallback: Knowledge Base + OpenAI
+        // 4. Experiences / Activities 🍷 (NEW)
+        if (lowerText.includes('faire') || lowerText.includes('do') || lowerText.includes('activit') || lowerText.includes('experience') || lowerText.includes('visit')) {
+            // Fetch from our internal API (or direct DB call if server-side)
+            // simplified: we'll just mock the call or fetch from the endpoint if possible.
+            // Since we are server-side, we can't easily fetch our own API with full URL relative?
+            // Actually, let's keep it simple and hardcode the recommendation logic here for the demo 
+            // akin to how we did places.json fallback, BUT pointing to the new "Experiences" concept.
+
+            const experiences = [
+                { title: 'Dégustation de Vins Ombriens', price: 35, category: 'food' },
+                { title: 'Atelier Mosaïque Médiévale', price: 50, category: 'art' },
+                { title: 'Visite "Assise Secrète"', price: 20, category: 'tour' }
+            ];
+
+            let response = `🎟️ *Expériences recommandées :*\n\n`;
+            experiences.forEach(ex => {
+                response += `• *${ex.title}* (${ex.price}€)\n`;
+                const link = generateTrackingLink(`https://assisi.ai/book/${ex.category}`, 'experience-merchant', chatId);
+                response += `  👉 [Réserver](${link})\n\n`;
+            });
+
+            return { intent: 'experience', text: response };
+        }
+
+        // 5. Fallback: Knowledge Base + OpenAI
         const knowledge = await searchKnowledge(text);
         let context = "";
         if (knowledge && knowledge.length > 0) {
