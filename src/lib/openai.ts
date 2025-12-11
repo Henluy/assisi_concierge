@@ -69,4 +69,21 @@ export async function analyzeImage(imageUrl: string): Promise<string> {
         console.error("Error analyzing image:", error);
         return "Désolé, je n'arrive pas à voir cette image pour le moment (Erreur Vision).";
     }
-};
+}
+
+export async function generateSpeech(text: string): Promise<Buffer | null> {
+    if (!openai) return null;
+    try {
+        const mp3 = await openai.audio.speech.create({
+            model: "tts-1",
+            voice: "alloy",
+            input: text,
+        });
+
+        const buffer = Buffer.from(await mp3.arrayBuffer());
+        return buffer;
+    } catch (error) {
+        console.error("Error generating speech:", error);
+        return null;
+    }
+}

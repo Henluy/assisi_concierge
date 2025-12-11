@@ -19,8 +19,8 @@ type Place = {
     description: string;
 };
 
-import { getTelegramFileUrl } from '@/lib/telegram';
-import { analyzeImage } from '@/lib/openai';
+import { getTelegramFileUrl, bot } from '@/lib/telegram';
+import { analyzeImage, generateSpeech } from '@/lib/openai';
 import { predictCrowdLevel } from '@/lib/prediction';
 
 // ... (existing imports)
@@ -64,6 +64,26 @@ export async function POST(req: NextRequest) {
         const text = update.message.text.toLowerCase();
 
         let responseText = "";
+
+        // 🎧 Audio/Guide Intent
+        if (text.includes('audio') || text.includes('guide') || text.includes('voix') || text.includes('parle') || text.includes('écouter') || text.includes('raconte')) {
+            await sendTelegramMessage(chatId, "🎙️ **Enregistrement de l'audioguide en cours...** (Patientez ~5s)");
+
+            // 1. Generate text summary (short for cost)
+            const summary = "Bienvenue à la Basilique Saint-François d'Assise. Ce joyau de l'art gothique, achevé en 1253, abrite les célèbres fresques de Giotto racontant la vie du Saint. L'église supérieure, inondée de lumière, contraste avec la crypte silencieuse où repose le Poverello";
+
+            // 2. Generate Audio
+            const audioBuffer = await generateSpeech(summary);
+
+            if (audioBuffer && bot) {
+                // 3. Send Voice Note
+                await bot.telegram.sendVoice(chatId, { source: audioBuffer, filename: 'audioguide.mp3' }, { caption: "🎧 Audioguide : Basilique Saint-François" });
+            } else {
+                await sendTelegramMessage(chatId, "❌ Désolé, je n'ai pas pu générer l'audio.");
+            }
+
+            return NextResponse.json({ ok: true });
+        }
 
         // ⏳ Crowd Prediction Intent
         if (text.includes('monde') || text.includes('foule') || text.includes('attente') || text.includes('affollamento') || text.includes('people')) {
