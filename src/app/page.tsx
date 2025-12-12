@@ -128,7 +128,7 @@ export default function Home() {
             </h2>
             <p className="text-gray-600 mb-4">{t.botCardDesc}</p>
             <a
-              href="https://t.me/Vainqueur85Bot"
+              href="https://t.me/AssisiGuideBot"
               target="_blank"
               className="inline-block w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
             >
