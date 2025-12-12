@@ -1,49 +1,49 @@
-import QRCode from 'qrcode';
-import fs from 'fs';
-import path from 'path';
+import QRCode from "qrcode";
+import fs from "fs";
+import path from "path";
 
-const BOT_USERNAME = 'AssisiConciergeBot'; // Replace with actual bot username
+const BOT_USERNAME = "AssisiGuideBot"; // Official Bot Username
 const BOT_LINK = `https://t.me/${BOT_USERNAME}`;
-const WEB_LINK = 'https://assisi-concierge.vercel.app/chat';
+const WEB_LINK = "https://assisi-concierge.vercel.app/chat";
 
 async function generateQRCodes() {
-    console.log('🎨 Generating QR Codes for Assisi Concierge...\n');
+  console.log("🎨 Generating QR Codes for Assisi Concierge...\n");
 
-    const outputDir = path.join(process.cwd(), 'public', 'qr');
+  const outputDir = path.join(process.cwd(), "public", "qr");
 
-    // Create output directory
-    if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
-    }
+  // Create output directory
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
 
-    // 1. Telegram Bot QR
-    const telegramQRPath = path.join(outputDir, 'telegram-bot.png');
-    await QRCode.toFile(telegramQRPath, BOT_LINK, {
-        width: 400,
-        margin: 2,
-        color: {
-            dark: '#0088cc', // Telegram blue
-            light: '#ffffff'
-        }
-    });
-    console.log(`✅ Telegram QR: ${telegramQRPath}`);
-    console.log(`   Link: ${BOT_LINK}`);
+  // 1. Telegram Bot QR
+  const telegramQRPath = path.join(outputDir, "telegram-bot.png");
+  await QRCode.toFile(telegramQRPath, BOT_LINK, {
+    width: 400,
+    margin: 2,
+    color: {
+      dark: "#0088cc", // Telegram blue
+      light: "#ffffff",
+    },
+  });
+  console.log(`✅ Telegram QR: ${telegramQRPath}`);
+  console.log(`   Link: ${BOT_LINK}`);
 
-    // 2. Web App QR
-    const webQRPath = path.join(outputDir, 'web-chat.png');
-    await QRCode.toFile(webQRPath, WEB_LINK, {
-        width: 400,
-        margin: 2,
-        color: {
-            dark: '#2563eb', // Blue-600
-            light: '#ffffff'
-        }
-    });
-    console.log(`✅ Web Chat QR: ${webQRPath}`);
-    console.log(`   Link: ${WEB_LINK}`);
+  // 2. Web App QR
+  const webQRPath = path.join(outputDir, "web-chat.png");
+  await QRCode.toFile(webQRPath, WEB_LINK, {
+    width: 400,
+    margin: 2,
+    color: {
+      dark: "#2563eb", // Blue-600
+      light: "#ffffff",
+    },
+  });
+  console.log(`✅ Web Chat QR: ${webQRPath}`);
+  console.log(`   Link: ${WEB_LINK}`);
 
-    // 3. Generate HTML flyer template
-    const flyerHTML = `
+  // 3. Generate HTML flyer template (Italian)
+  const flyerHTML = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,41 +63,41 @@ async function generateQRCodes() {
 </head>
 <body>
     <h1>🇮🇹 Assisi AI Concierge</h1>
-    <p class="subtitle">Votre guide intelligent pour découvrir Assise</p>
+    <p class="subtitle">La tua guida intelligente per scoprire Assisi</p>
     
     <div class="qr-container">
         <div class="qr-box">
             <img src="telegram-bot.png" alt="Telegram QR">
             <h3>📱 Telegram</h3>
-            <p>Scannez pour ouvrir le Bot</p>
+            <p>Scansiona per aprire il Bot</p>
         </div>
         <div class="qr-box">
             <img src="web-chat.png" alt="Web QR">
             <h3>💻 Web</h3>
-            <p>Scannez pour le Chat Web</p>
+            <p>Scansiona per la Chat Web</p>
         </div>
     </div>
     
     <div class="features">
-        <div class="feature">🍽️ Restaurants</div>
-        <div class="feature">🙏 Messes</div>
-        <div class="feature">🎧 Audioguides</div>
-        <div class="feature">📸 Photos IA</div>
+        <div class="feature">🍽️ Ristoranti</div>
+        <div class="feature">🙏 Messe</div>
+        <div class="feature">🎧 Audioguide</div>
+        <div class="feature">📸 Foto AI</div>
     </div>
     
     <footer>
-        Powered by AssisiConcierge.ai • Gratuit • Multilingue (IT/EN/FR/DE/ES)
+        Powered by AssisiConcierge.ai • Gratuito • Multilingue (IT/EN/FR/DE/ES)
     </footer>
 </body>
 </html>
 `;
 
-    const flyerPath = path.join(outputDir, 'flyer.html');
-    fs.writeFileSync(flyerPath, flyerHTML);
-    console.log(`✅ Flyer HTML: ${flyerPath}`);
+  const flyerPath = path.join(outputDir, "flyer.html");
+  fs.writeFileSync(flyerPath, flyerHTML);
+  console.log(`✅ Flyer HTML: ${flyerPath}`);
 
-    console.log('\n🎉 QR Codes générés dans /public/qr/');
-    console.log('   Ouvrez flyer.html pour imprimer les QR codes !');
+  console.log("\n🎉 QR Codes générés dans /public/qr/");
+  console.log("   Ouvrez flyer.html pour imprimer les QR codes !");
 }
 
 generateQRCodes();

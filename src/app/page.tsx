@@ -78,6 +78,20 @@ const FLAGS: Record<Language, string> = {
 
 export default function Home() {
   const [lang, setLang] = useState<Language>("fr");
+
+  useEffect(() => {
+    // Auto-detect browser language
+    if (typeof window !== "undefined") {
+      const browserLang = navigator.language.split("-")[0];
+      if (["fr", "en", "it", "de", "es"].includes(browserLang)) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setLang((prev) =>
+          prev !== browserLang ? (browserLang as Language) : prev,
+        );
+      }
+    }
+  }, []);
+
   const t = TRANSLATIONS[lang];
 
   return (
